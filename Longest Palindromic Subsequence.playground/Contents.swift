@@ -14,7 +14,9 @@ class Object {
 
 func lps (string: [String]) -> Object {
     let n: Int = string.count;
+    // tracks length of palindrom
     var c: [[Int]] = Array(repeating: Array(repeatElement(0, count: n)), count: n);
+    // tracks indices corresponding to the longest subsequence
     var a: [[String]] = Array(repeating: Array(repeatElement("", count: n)), count: n);
     
     // length 1 string is a palindrome in and of itself, so the diagonal is going to 
@@ -26,7 +28,7 @@ func lps (string: [String]) -> Object {
         k += 1;
     }
     
-    let lg = Object(s:n);
+    let lg = Object(s:0);
     var j = 0;
     // skip the first since it's just a 1 already along the diagonal
     var l = 2;
@@ -40,8 +42,6 @@ func lps (string: [String]) -> Object {
                 if 2 > lg.length {
                     lg.length = 2;
                 }
-                lg.sequence[i] = string[i];
-                lg.sequence[j] = string[j];
                 a[i][j] = "\(a[i][j]),\(i),\(j)";
             } else if string[i] == string[j] {
                 // always add two since it is a palindrome of length 2 + k, where k is the
@@ -51,28 +51,51 @@ func lps (string: [String]) -> Object {
                 if c[i][j] > lg.length {
                     lg.length = c[i][j];
                 }
-                lg.sequence[i] = string[i];
-                lg.sequence[j] = string[j];
                 a[i][j] = "\(a[i+1][j-1]),\(i),\(j)";
             } else {
                 // this bubbles up the longest subsequence to be c[0][n-1]
                 c[i][j] = (c[i][j-1] > c[i+1][j] ? c[i][j-1] : c[i+1][j]);
+                a[i][j] = (c[i][j-1] > c[i+1][j] ? a[i][j-1] : a[i+1][j]);
             }
             i += 1;
         }
         l += 1;
     }
+    // gather the index mapping
+    let str = a[0][n-1];
     
-    c;
-    a;
+    // convert all this crap to an Int array of the indices
+    let chars = str.characters;
+    let s = chars.map({String($0)});
+    var s2 = Array(repeatElement("", count: s.count));
+    var counter = 0;
+    for i in s {
+        if i == "," {
+            counter += 1;
+        } else {
+            s2[counter] = s2[counter] + i;
+        }
+    }
+    var indices = [Int]();
+    for item in s2 {
+        if  Int(item) != nil {
+            indices.append(Int(item)!);
+        }
+    }
+    indices.sort();
+    
+    // store in return value
+    for i in indices {
+        lg.sequence.append(string[i]);
+    }
     return lg;
 }
 
-//test = "hannah";
-var input = test.characters.map { String($0) };
+var input = name.characters.map { String($0) };
 
-lps(string: input);
+var r = lps(string: input);
 
+print(r.length, r.sequence);
 
 
 
