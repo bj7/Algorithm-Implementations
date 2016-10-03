@@ -4,6 +4,10 @@ var name: String = "JOSHUAJAMESBERNITT";
 var test: String = "character";
 
 class Object {
+    init(s: Int) {
+        sequence = Array(repeatElement("", count: s));
+    }
+    
     var length: Int = -1;
     var sequence: Array = [""];
 }
@@ -11,16 +15,18 @@ class Object {
 func lps (string: [String]) -> Object {
     let n: Int = string.count;
     var c: [[Int]] = Array(repeating: Array(repeatElement(0, count: n)), count: n);
+    var a: [[String]] = Array(repeating: Array(repeatElement("", count: n)), count: n);
     
     // length 1 string is a palindrome in and of itself, so the diagonal is going to 
     // simply be 1's
     var k = 0;
     while k <= n - 1 {
         c[k][k] = 1;
+        a[k][k] = "\(k)";
         k += 1;
     }
     
-    let lg = Object();
+    let lg = Object(s:n);
     var j = 0;
     // skip the first since it's just a 1 already along the diagonal
     var l = 2;
@@ -34,7 +40,9 @@ func lps (string: [String]) -> Object {
                 if 2 > lg.length {
                     lg.length = 2;
                 }
-                lg.sequence.append(string[i]);
+                lg.sequence[i] = string[i];
+                lg.sequence[j] = string[j];
+                a[i][j] = "\(a[i][j]),\(i),\(j)";
             } else if string[i] == string[j] {
                 // always add two since it is a palindrome of length 2 + k, where k is the
                 // previous length from the immediate upper left diagonal matrix entry,
@@ -43,7 +51,9 @@ func lps (string: [String]) -> Object {
                 if c[i][j] > lg.length {
                     lg.length = c[i][j];
                 }
-                lg.sequence.append(string[i]);
+                lg.sequence[i] = string[i];
+                lg.sequence[j] = string[j];
+                a[i][j] = "\(a[i+1][j-1]),\(i),\(j)";
             } else {
                 // this bubbles up the longest subsequence to be c[0][n-1]
                 c[i][j] = (c[i][j-1] > c[i+1][j] ? c[i][j-1] : c[i+1][j]);
@@ -54,6 +64,7 @@ func lps (string: [String]) -> Object {
     }
     
     c;
+    a;
     return lg;
 }
 
