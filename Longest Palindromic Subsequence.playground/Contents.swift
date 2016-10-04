@@ -12,6 +12,44 @@ class Object {
     var sequence: Array = [""];
 }
 
+/**
+ Utility to gather up the subsequence based on the string of indices passed as a param
+ 
+ @param {String} s      The string of comma seperated indices.
+ @return {Array: Int}   Returns the array of sorted integer indices that correspond to
+                        characters in the string.
+ */
+func gatherSubsequence (s: String) -> [Int] {
+    // convert all this crap to an Int array of the indices
+    let chars = s.characters;
+    let s = chars.map({String($0)});
+    var s2 = Array(repeatElement("", count: s.count));
+    var counter = 0;
+    for i in s {
+        if i == "," {
+            counter += 1;
+        } else {
+            s2[counter] = s2[counter] + i;
+        }
+    }
+    var indices = [Int]();
+    for item in s2 {
+        if  Int(item) != nil {
+            indices.append(Int(item)!);
+        }
+    }
+    return indices.sorted();
+}
+
+/**
+ Finds the length of the longest palindromic subsequence, and the actual string value of
+ it.
+ 
+ @param {Array: String} string  The string to search through for palindromes.
+ @return {Object}               Returns an object of class Object with the correct
+                                value for the length and the array of characters of the 
+                                subsequence.
+ */
 func lps (string: [String]) -> Object {
     let n: Int = string.count;
     // tracks length of palindrom
@@ -64,30 +102,13 @@ func lps (string: [String]) -> Object {
     // gather the index mapping
     let str = a[0][n-1];
     
-    // convert all this crap to an Int array of the indices
-    let chars = str.characters;
-    let s = chars.map({String($0)});
-    var s2 = Array(repeatElement("", count: s.count));
-    var counter = 0;
-    for i in s {
-        if i == "," {
-            counter += 1;
-        } else {
-            s2[counter] = s2[counter] + i;
-        }
-    }
-    var indices = [Int]();
-    for item in s2 {
-        if  Int(item) != nil {
-            indices.append(Int(item)!);
-        }
-    }
-    indices.sort();
+    let indices = gatherSubsequence(s: str);
     
     // store in return value
     for i in indices {
         lg.sequence.append(string[i]);
     }
+    
     return lg;
 }
 
