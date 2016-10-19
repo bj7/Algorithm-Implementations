@@ -2,6 +2,7 @@
 
 var name: String = "JOSHUAJAMESBERNITT";
 var test: String = "character";
+var hamlet: String = "ohthatthistootoosolidfleshwouldmeltthawandresolueitselfeintoadeworthattheeuerlastinghadnotfixthiscannongainstselfeslaughterogodogodhowwearystaleflatandvnprofitableseemestomeallthevsesofthisworldfieontohfiefietisanvnweededgardenthatgrowestoseedthingsrankandgrosseinnaturepossesseitmeerelythatitshouldcometothisbutwomonthsdeadnaynotsomuchnottwosoexcellentakingthatwastothishiperiontoasatyresolouingtomymotherthathemightnotbeteenethewindesofheauenvisitherfacetooroughlyheauenandearthmustirememberwhyshewouldhangonhimasifencreaseofappetitehadgrownebywhatitfedonandyetwithinamonthletmenotthinkeontfrailtythynameiswoman";
 
 class Object {
     init(s: Int) {
@@ -112,12 +113,16 @@ func lps (string: [String]) -> Object {
     return lg;
 }
 
-var input = name.characters.map { String($0) };
+var input = hamlet.characters.map { String($0) };
 
 var r = lps(string: input);
 
 print(r.length, r.sequence);
-// Output - 5, ["S", "A", "J", "A", "S"]
+
+/* OUTPUT FOR HAMLET STRING
+ 245 ["o", "a", "h", "t", "t", "l", "i", "f", "o", "e", "t", "t", "o", "e", "t", "e", "l", "t", "o", "a", "h", "t", "t", "e", "n", "a", "n", "o", "f", "t", "i", "a", "n", "o", "g", "a", "i", "t", "e", "f", "e", "s", "a", "e", "r", "e", "f", "a", "n", "o", "a", "l", "e", "s", "e", "e", "m", "e", "t", "m", "e", "a", "e", "e", "h", "o", "r", "o", "o", "e", "f", "e", "t", "i", "s", "v", "n", "e", "e", "e", "d", "e", "n", "t", "h", "a", "t", "r", "e", "t", "o", "t", "g", "s", "r", "a", "a", "n", "o", "i", "r", "e", "p", "s", "i", "t", "t", "a", "t", "i", "t", "l", "c", "e", "o", "s", "o", "o", "n", "h", "s", "n", "y", "n", "s", "h", "n", "o", "o", "s", "o", "e", "c", "l", "t", "i", "t", "a", "t", "t", "i", "s", "p", "e", "r", "i", "o", "n", "a", "a", "r", "s", "g", "t", "o", "t", "e", "r", "t", "a", "h", "t", "n", "e", "d", "e", "e", "e", "n", "v", "s", "i", "t", "e", "f", "e", "o", "o", "r", "o", "h", "e", "e", "a", "e", "m", "t", "e", "m", "e", "e", "s", "e", "l", "a", "o", "n", "a", "f", "e", "r", "e", "a", "s", "e", "f", "e", "t", "i", "a", "g", "o", "n", "a", "i", "t", "f", "o", "n", "a", "n", "e", "t", "t", "h", "a", "o", "t", "l", "e", "t", "e", "o", "t", "t", "e", "o", "f", "i", "l", "t", "t", "h", "a", "o"]
+
+ */
 
 
 
