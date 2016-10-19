@@ -117,6 +117,7 @@ var input = name.characters.map { String($0) };
 var r = lps(string: input);
 
 print(r.length, r.sequence);
+// Output - 5, ["S", "A", "J", "A", "S"]
 
 
 
